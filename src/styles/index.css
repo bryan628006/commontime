@@ -1,0 +1,276 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter/opsz.css';
+
+/* ─────────────────────────────────────────────────────────────
+   CommonTime design tokens — see DESIGN.md
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* surfaces */
+  --color-canvas: #f4f4f2;
+  --color-surface: #ffffff;
+  --color-sunken: #f7f7f5;
+  --color-line: rgb(0 0 0 / 0.07);
+  --color-line-strong: rgb(0 0 0 / 0.12);
+
+  /* ink & text */
+  --color-ink: #161616;
+  --color-ink-hover: #2b2b2b;
+  --color-fg: #121212;
+  --color-fg-2: #545454;
+  --color-fg-3: #717171;
+  --color-fg-4: #a6a6a6;
+
+  /* accent (focus, links, organizer) */
+  --color-accent: #5b5bf0;
+  --color-accent-soft: #eeeefe;
+
+  /* preference states — one green family */
+  --color-pref: oklch(0.78 0.15 153);
+  --color-pref-strong: oklch(0.64 0.15 153);
+  --color-pref-ink: oklch(0.33 0.08 153);
+  --color-works: oklch(0.955 0.04 150);
+  --color-works-line: oklch(0.82 0.09 150);
+  --color-works-ink: oklch(0.42 0.09 152);
+  --color-none: #ffffff;
+
+  /* feedback */
+  --color-warn: #fff5e0;
+  --color-warn-line: #f5d9a3;
+  --color-warn-ink: #8a5300;
+  --color-danger: #e5484d;
+  --color-danger-soft: #fdecec;
+
+  /* radii (concentric: card = panel + 8px padding) */
+  --radius-card: 20px;
+  --radius-panel: 12px;
+  --radius-chip: 8px;
+
+  /* depth */
+  --shadow-card: 0 0 0 1px rgb(0 0 0 / 0.045), 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 20px -6px rgb(0 0 0 / 0.07);
+  --shadow-raised: 0 0 0 1px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.05), 0 16px 32px -8px rgb(0 0 0 / 0.12);
+  --shadow-pop: 0 0 0 1px rgb(0 0 0 / 0.06), 0 4px 8px rgb(0 0 0 / 0.05), 0 24px 48px -12px rgb(0 0 0 / 0.2);
+  --shadow-button: 0 1px 2px rgb(0 0 0 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.08);
+  --shadow-ink: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(0 0 0 / 0.2), 0 0 0 1px #000;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* type scale */
+  --text-2xs: 11px;
+  --text-2xs--line-height: 14px;
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 13px;
+  --text-sm--line-height: 18px;
+  --text-base: 14px;
+  --text-base--line-height: 20px;
+  --text-md: 16px;
+  --text-md--line-height: 24px;
+  --text-lg: 20px;
+  --text-lg--line-height: 26px;
+  --text-xl: 28px;
+  --text-xl--line-height: 32px;
+  --text-2xl: 44px;
+  --text-2xl--line-height: 46px;
+
+  --animate-breathe: breathe 2.4s var(--ease-in-out) infinite;
+  --animate-shake: shake 360ms var(--ease-out);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-canvas text-fg font-sans text-base antialiased;
+    font-optical-sizing: auto;
+    font-feature-settings: 'cv11', 'ss03';
+    min-height: 100dvh;
+    background-image:
+      linear-gradient(to right, rgb(0 0 0 / 0.028) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(0 0 0 / 0.028) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: default;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Utilities & patterns
+   ───────────────────────────────────────────────────────────── */
+@utility card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+@utility hatch {
+  background-color: var(--color-works);
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--color-works-line) 0 1.25px,
+    transparent 1.25px 6px
+  );
+}
+
+@utility dashed-divider {
+  background-image: linear-gradient(to right, var(--color-line-strong) 50%, transparent 50%);
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+  height: 1px;
+}
+
+@utility press {
+  transition: transform 160ms var(--ease-out);
+  &:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Digits/letters inside a badge, pin or keycap. Trims the line box to the glyph's
+ * cap-height + baseline so flex/grid centering is *optical* centering — otherwise the
+ * inherited line-height and Inter's ascender space push numerals ~1.5px low.
+ */
+@utility glyph {
+  display: block;
+  line-height: 1;
+  text-box: trim-both cap alphabetic;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility canvas-fade {
+  /* soft vignette that lifts content off the grid canvas */
+  background: radial-gradient(120% 80% at 50% 0%, var(--color-canvas) 40%, transparent 100%);
+}
+
+/* ticket perforation notches */
+@utility notch-bottom {
+  mask:
+    radial-gradient(circle 11px at 0 100%, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 100%, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+@utility notch-top {
+  mask:
+    radial-gradient(circle 11px at 0 0, #0000 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 0, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Painter
+   ───────────────────────────────────────────────────────────── */
+.run-block {
+  transition:
+    opacity 140ms var(--ease-out),
+    scale 160ms var(--ease-out);
+  transform-origin: top center;
+  @starting-style {
+    opacity: 0;
+    scale: 0.94;
+  }
+}
+
+.paint-cell {
+  transition: background-color 120ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .painter-grid {
+    cursor: cell;
+  }
+  .painter-grid[data-brush='2'] .paint-cell:hover {
+    background: color-mix(in oklch, var(--color-pref) 26%, transparent);
+  }
+  .painter-grid[data-brush='1'] .paint-cell:hover {
+    background: color-mix(in oklch, var(--color-works-line) 30%, transparent);
+  }
+  .painter-grid[data-brush='0'] .paint-cell:hover {
+    background: rgb(0 0 0 / 0.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
