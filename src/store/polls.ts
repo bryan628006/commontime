@@ -18,7 +18,7 @@ export interface NewPollInput {
 interface PollsState {
   polls: Record<string, Poll>
   createPoll: (input: NewPollInput) => Poll
-  upsertResponse: (pollId: string, input: { id?: string; name: string; cells: Cells }) => PollResponse
+  upsertResponse: (pollId: string, input: { id?: string; name: string; cells: Cells; pinHash?: string }) => PollResponse
   confirm: (pollId: string, day: number, startSlot: number) => void
   reopen: (pollId: string) => void
   setProceedEarly: (pollId: string, value: boolean) => void
@@ -61,7 +61,7 @@ export const usePolls = create<PollsState>()(
         return poll
       },
 
-      upsertResponse: (pollId, { id, name, cells }) => {
+      upsertResponse: (pollId, { id, name, cells, pinHash }) => {
         const poll = get().polls[pollId]
         const existing = poll.responses.find(
           (r) => r.id === id || (!id && r.name.trim().toLowerCase() === name.trim().toLowerCase()),
@@ -71,6 +71,8 @@ export const usePolls = create<PollsState>()(
           name: name.trim(),
           cells,
           updatedAt: Date.now(),
+          // a password, once set, sticks; a new one can only be added to an unprotected name
+          pinHash: existing?.pinHash ?? pinHash,
         }
         const responses = existing
           ? poll.responses.map((r) => (r.id === existing.id ? response : r))

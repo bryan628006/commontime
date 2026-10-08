@@ -8,6 +8,8 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 export interface Identity {
   name: string
   responseId?: string
+  /** password chosen at sign-in, saved onto the response at first submit */
+  pinHash?: string
 }
 
 interface SessionState {

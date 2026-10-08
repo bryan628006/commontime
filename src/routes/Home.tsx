@@ -22,7 +22,7 @@ export function Home() {
       }
     >
       {/* hero */}
-      <section className="grid items-center gap-10 pt-4 pb-10 lg:grid-cols-[1fr_minmax(0,560px)] lg:gap-14 lg:pt-10 lg:pb-16">
+      <section className="grid items-center gap-10 pt-4 pb-16 lg:grid-cols-[1fr_minmax(0,560px)] lg:gap-14 lg:pt-10 lg:pb-28">
         <div>
           <motion.span
             initial={{ opacity: 0, y: 6 }}

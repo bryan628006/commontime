@@ -13,6 +13,8 @@ export interface PollResponse {
   name: string
   cells: Cells
   updatedAt: number
+  /** optional per-poll password (SHA-256), like When2meet's — only this name can edit with it */
+  pinHash?: string
 }
 
 export interface Confirmation {
